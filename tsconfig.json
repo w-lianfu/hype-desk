@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "CommonJS",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": true,
+    "jsx": "react",
+    "strict": true,
+    "pretty": true,
+    "sourceMap": true,
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["app/*"],
+      "@global/*": ["app/global/*"],
+      "@globalComp/*": ["app/global/components/*"],
+      "@globalScss/*": ["app/global/scss/*"],
+      "@globalStore/*": ["app/global/store/*"],
+      "@globalStyled/*": ["app/global/styled/*"],
+      "@comp/*": ["app/components/*"],
+      "@con/*": ["app/containers/*"],
+      "@store/*": ["app/store/*"],
+      "@scss/*": ["app/scss/*"],
+      "@utils/*": ["app/utils/*"],
+      "@tools/*": ["app/utils/tools/*"],
+      "@themeConfig/*": ["app/utils/themeConfig/*"],
+      "@static/*": ["app/static/*"],
+      "@image/*": ["app/static/image/*"],
+      "@docs/*": ["app/docs/*"],
+      "@test/*": ["app/tests/*"]
+    }
+  },
+  "exclude": [
+    "test",
+    "release",
+    "app/main.prod.js",
+    "app/renderer.prod.js",
+    "app/dist",
+    "dll"
+  ]
+}
