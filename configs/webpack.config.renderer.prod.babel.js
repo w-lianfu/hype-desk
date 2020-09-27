@@ -9,6 +9,8 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
+
+import paths from './paths';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 import DeleteSourceMaps from '../internals/scripts/DeleteSourceMaps';
@@ -49,9 +51,12 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
           },
         ],
       },
@@ -64,13 +69,13 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-              sourceMap: true,
-            },
           },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
+          }
         ],
       },
       // Add SASS support  - compile all .global.scss files and pipe it to style.css
@@ -82,16 +87,12 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 1,
-            },
+          },
+          {
+            loader: 'postcss-loader',
           },
           {
             loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
           },
         ],
       },
@@ -104,19 +105,12 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-              importLoaders: 1,
-              sourceMap: true,
-            },
+          },
+          {
+            loader: 'postcss-loader',
           },
           {
             loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
           },
         ],
       },
@@ -175,6 +169,29 @@ export default merge(baseConfig, {
         use: 'url-loader',
       },
     ],
+  },
+
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+      '@': paths.appSrc,
+      '@global': paths.appGlobal,
+      '@globalComp': paths.globalComp,
+      '@globalStore': paths.globalStore,
+      '@globalScss': paths.globalScss,
+      '@globalStyled': paths.globalStyled,
+      '@comp': paths.appComp,
+      '@con': paths.appCon,
+      '@store': paths.appStore,
+      '@scss': paths.appScss,
+      '@utils': paths.appUtils,
+      '@tools': paths.appTools,
+      '@themeConfig': paths.themeConfig,
+      '@static': paths.appStatic,
+      '@image': paths.appImage,
+      '@docs': paths.appDocs,
+      '@test': paths.appTest,
+    },
   },
 
   optimization: {

@@ -3,18 +3,20 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { hot } from 'react-hot-loader/root';
 import { History } from 'history';
-import { Store } from '../store';
-import Routes from '../Routes';
 
-type Props = {
+import { Store } from '../store';
+import AppRoute from './app-route';
+
+interface IProps {
   store: Store;
   history: History;
-};
+}
+interface IState {}
 
-const Root = ({ store, history }: Props) => (
+const Root = ({ store, history }: IProps, state: IState) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Routes />
+      <AppRoute />
     </ConnectedRouter>
   </Provider>
 );

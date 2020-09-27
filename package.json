@@ -22,8 +22,6 @@
     "package-linux": "yarn build && electron-builder build --linux",
     "package-win": "yarn build && electron-builder build --win --x64",
     "postinstall": "node -r @babel/register internals/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-dll && opencollective-postinstall",
-    "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
-    "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
     "preinstall": "node ./internals/scripts/CheckYarn.js",
     "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
@@ -35,21 +33,6 @@
     "test-e2e": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.ts",
     "test-e2e-live": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe --live electron:./app ./test/e2e/HomePage.e2e.ts",
     "test-watch": "yarn test --watch"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "cross-env NODE_ENV=development eslint --cache"
-    ],
-    "{*.json,.{babelrc,eslintrc,prettierrc,stylelintrc}}": [
-      "prettier --ignore-path .eslintignore --parser json --write"
-    ],
-    "*.{css,scss}": [
-      "stylelint --ignore-path .eslintignore --syntax scss --fix",
-      "prettier --ignore-path .eslintignore --single-quote --write"
-    ],
-    "*.{html,md,yml}": [
-      "prettier --ignore-path .eslintignore --single-quote --write"
-    ]
   },
   "build": {
     "productName": "ElectronReact",
@@ -229,13 +212,11 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-typescript": "^10.0.0",
     "eslint-config-erb": "^1.0.0",
-    "eslint-config-prettier": "^6.12.0",
     "eslint-import-resolver-webpack": "^0.12.2",
     "eslint-plugin-compat": "^3.8.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.2",
     "eslint-plugin-jsx-a11y": "6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^4.1.2",
@@ -248,14 +229,12 @@
     "mini-css-extract-plugin": "^0.11.2",
     "opencollective-postinstall": "^2.0.3",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
-    "prettier": "^2.1.2",
     "react-test-renderer": "^16.13.1",
     "redux-logger": "^3.0.6",
     "rimraf": "^3.0.2",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "stylelint": "^13.7.2",
-    "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
     "terser-webpack-plugin": "^4.2.2",
     "testcafe": "^1.9.3",
@@ -271,14 +250,36 @@
     "webpack-merge": "^5.1.4"
   },
   "dependencies": {
+    "@emotion/cache": "^10.0.29",
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@hot-loader/react-dom": "^16.13.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/styles": "^4.10.0",
     "@reduxjs/toolkit": "^1.4.0",
+    "@teamsupercell/typings-for-css-modules-loader": "^2.3.0",
     "connected-react-router": "^6.8.0",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.5",
+    "emotion": "^10.0.27",
     "history": "^5.0.0",
+    "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.20",
+    "mathjs": "^7.3.0",
+    "mobx": "^5.15.7",
+    "mobx-react": "^6.3.0",
+    "moment": "^2.29.0",
+    "node-sass": "^4.14.1",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-loader": "^4.0.2",
+    "postcss-normalize": "^9.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "ramda": "^0.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.13.0",
@@ -287,7 +288,10 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.7",
-    "source-map-support": "^0.5.19"
+    "rxjs": "^6.6.3",
+    "source-map-support": "^0.5.19",
+    "styled-components": "^5.2.0",
+    "viewerjs": "^1.7.0"
   },
   "devEngines": {
     "node": ">=7.x",
@@ -296,38 +300,5 @@
   },
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"
-  },
-  "browserslist": [],
-  "prettier": {
-    "overrides": [
-      {
-        "files": [
-          ".prettierrc",
-          ".babelrc",
-          ".eslintrc",
-          ".stylelintrc"
-        ],
-        "options": {
-          "parser": "json"
-        }
-      }
-    ],
-    "singleQuote": true
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-prettier"
-    ]
-  },
-  "renovate": {
-    "extends": [
-      "bliss"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

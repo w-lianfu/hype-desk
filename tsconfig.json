@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2018",
     "module": "CommonJS",
     "lib": ["dom", "esnext"],
@@ -8,7 +9,7 @@
     "noEmit": true,
     "jsx": "react",
     "strict": true,
-    "pretty": true,
+    "pretty": false,
     "sourceMap": true,
     /* Additional Checks */
     "noUnusedLocals": true,

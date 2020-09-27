@@ -11,6 +11,8 @@ import webpack from 'webpack';
 import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
+
+import paths from './paths';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 
@@ -71,9 +73,12 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
           },
         ],
       },
@@ -85,13 +90,12 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-              sourceMap: true,
-              importLoaders: 1,
-            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
           },
         ],
       },
@@ -104,9 +108,9 @@ export default merge(baseConfig, {
           },
           {
             loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
+          },
+          {
+            loader: 'postcss-loader',
           },
           {
             loader: 'sass-loader',
@@ -118,17 +122,17 @@ export default merge(baseConfig, {
         test: /^((?!\.global).)*\.(scss|sass)$/,
         use: [
           {
-            loader: 'typings-for-css-modules-loader',
+            loader: 'style-loader',
           },
           {
-            loader: 'typings-for-css-modules-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-              sourceMap: true,
-              importLoaders: 1,
-            },
+            // loader: 'typings-for-css-modules-loader',
+            loader: '@teamsupercell/typings-for-css-modules-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
           },
           {
             loader: 'sass-loader',
@@ -194,6 +198,23 @@ export default merge(baseConfig, {
   resolve: {
     alias: {
       'react-dom': '@hot-loader/react-dom',
+      '@': paths.appSrc,
+      '@global': paths.appGlobal,
+      '@globalComp': paths.globalComp,
+      '@globalStore': paths.globalStore,
+      '@globalScss': paths.globalScss,
+      '@globalStyled': paths.globalStyled,
+      '@comp': paths.appComp,
+      '@con': paths.appCon,
+      '@store': paths.appStore,
+      '@scss': paths.appScss,
+      '@utils': paths.appUtils,
+      '@tools': paths.appTools,
+      '@themeConfig': paths.themeConfig,
+      '@static': paths.appStatic,
+      '@image': paths.appImage,
+      '@docs': paths.appDocs,
+      '@test': paths.appTest,
     },
   },
   plugins: [
